@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toaster Notification</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Toast container */
+    .toast-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+
+    /* Individual toast */
+    .toast {
+      display: flex;
+      align-items: center;
+      background-color: #333;
+      color: #fff;
+      padding: 10px 20px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      transform: translateY(-20px);
+      animation: fadeInOut 4s forwards;
+    }
+
+    /* Toast animation */
+    @keyframes fadeInOut {
+      0% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      10% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      90% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+    }
+
+    /* Success Toast */
+    .toast.success {
+      background-color: #4caf50;
+    }
+
+    /* Error Toast */
+    .toast.error {
+      background-color: #f44336;
+    }
+
+    /* Info Toast */
+    .toast.info {
+      background-color: #2196f3;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toast-container" id="toast-container"></div>
+
+  <button onclick="showToast('This is a success message!', 'success')">Show Success Toast</button>
+  <button onclick="showToast('This is an error message!', 'error')">Show Error Toast</button>
+  <button onclick="showToast('This is an info message!', 'info')">Show Info Toast</button>
+
+  <script>
+    function showToast(message, type) {
+      const toastContainer = document.getElementById('toast-container');
+
+      // Create a new toast element
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.textContent = message;
+
+      // Append the toast to the container
+      toastContainer.appendChild(toast);
+
+      // Remove the toast after the animation ends
+      toast.addEventListener('animationend', () => {
+        toast.remove();
+      });
+    }
+  </script>
+
+</body>
+</html>
